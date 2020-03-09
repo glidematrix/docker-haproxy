@@ -24,6 +24,15 @@ services:
      - 5000
     # ports:
     #   - "5001:5000"
+  web3:
+    build: ./webapp
+    container_name: web3
+    volumes:
+      - ./webapp:/usr/src/app
+    environment:
+      appName: "web3"
+    expose:
+     - 5000
 
   haproxy:
     build: ./haproxy
