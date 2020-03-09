@@ -7,10 +7,8 @@ app = Flask(__name__)
 @app.route('/')
 def home():
 
-	appName = os.getenv("appName")
-
 	res = {
-		"appName": appName
+		"appName": os.getenv("appName")
 	}
 
 	return jsonify(res)

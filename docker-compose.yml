@@ -3,6 +3,7 @@ services:
   web1:
     build: ./webapp
     # image: glidematrix/nodeapp
+    container_name: web1
     volumes:
       - ./webapp:/usr/src/app
     #   - /usr/src/app/node_modules
@@ -14,6 +15,7 @@ services:
     #   - "5000:5000"
   web2:
     build: ./webapp
+    container_name: web2
     volumes:
       - ./webapp:/usr/src/app
     environment:
@@ -26,10 +28,16 @@ services:
   haproxy:
     build: ./haproxy
     # image: glidematrix/haproxy
+    container_name: haproxy
     volumes:
      - ./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+     - ./haproxy/webapp.pem:/usr/src/webapp.pem
     links:
      - web1
      - web2
     ports:
      - "80:80"
+     - "443:443"
+
+
+# docker-compose exec haproxy bash
