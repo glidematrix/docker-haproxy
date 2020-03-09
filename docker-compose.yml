@@ -1,0 +1,35 @@
+version: '3.7'
+services:
+  web1:
+    build: ./webapp
+    # image: glidematrix/nodeapp
+    volumes:
+      - ./webapp:/usr/src/app
+    #   - /usr/src/app/node_modules
+    environment:
+      appName: "web1"
+    expose:
+     - 5000
+    # ports:
+    #   - "5000:5000"
+  web2:
+    build: ./webapp
+    volumes:
+      - ./webapp:/usr/src/app
+    environment:
+      appName: "web2"
+    expose:
+     - 5000
+    # ports:
+    #   - "5001:5000"
+
+  haproxy:
+    build: ./haproxy
+    # image: glidematrix/haproxy
+    volumes:
+     - ./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    links:
+     - web1
+     - web2
+    ports:
+     - "80:80"
