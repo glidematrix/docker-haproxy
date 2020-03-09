@@ -9,8 +9,6 @@ def home():
 
 	appName = os.getenv("appName")
 
-	pprint(dir(os.environ))
-
 	res = {
 		"appName": appName
 	}
